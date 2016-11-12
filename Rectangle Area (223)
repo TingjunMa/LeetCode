@@ -1,0 +1,24 @@
+class Solution(object):
+    def computeArea(self, A, B, C, D, E, F, G, H):
+        """
+        :type A: int
+        :type B: int
+        :type C: int
+        :type D: int
+        :type E: int
+        :type F: int
+        :type G: int
+        :type H: int
+        :rtype: int
+        """
+        Area1 = (C-A)*(D-B)
+        Area2 = (G-E)*(H-F)
+        node1_x = max(A,E)
+        node1_y = max(B,F)
+        node2_x = min(C,G)
+        node2_y = min(D,H)
+        lappingArea = (node2_x-node1_x)*(node2_y-node1_y)
+        if (node1_x > node2_x or node1_y > node2_y):
+            return Area1 +Area2
+        else:
+            return Area1 + Area2 - lappingArea
