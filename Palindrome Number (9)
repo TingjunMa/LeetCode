@@ -1,0 +1,42 @@
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        s=str(x)
+        return s[-1::-1]==s
+        
+"""
+Java Code:
+
+public class Solution {
+    public boolean isPalindrome(int x) {
+        if (x<0){
+            return false;
+        }
+        
+        int d=1,d1=1,MSB=0,LSB=0,temp_x;
+        while (x/d>9){
+            d=d*10;
+        }
+         MSB=x/d;
+         LSB=x%10;
+         temp_x=x;
+        
+        while (d>d1){
+            if (MSB!=LSB){
+                return false;
+            }
+            d=d/10;
+            MSB=(x/d)%10;
+            temp_x=temp_x/10;
+            LSB=temp_x%10;
+            d1=d1*10;
+        }
+        return true;
+            
+    }
+}
+
+"""
