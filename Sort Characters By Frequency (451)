@@ -1,0 +1,19 @@
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        import operator
+        dict = {}
+        answer = ""
+        charList = list(s)
+        for char in charList:
+            if char not in dict.keys():
+                dict[char] = 0
+            dict[char] += 1
+        sortedDict = sorted(dict.items(),key=operator.itemgetter(1),reverse=True)
+        for char in sortedDict:
+            for i in range(char[1]):
+                answer += str(char[0])
+        return answer
