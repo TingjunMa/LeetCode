@@ -1,0 +1,25 @@
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        def sinkIsland(i,j):
+            if (0<=i<len(grid) and 0<=j<len(grid[0])):
+                if grid[i][j]=='1':
+                    grid[i][j] = '0'
+                    sinkIsland(i+1,j)
+                    sinkIsland(i,j+1)
+                    sinkIsland(i-1,j)
+                    sinkIsland(i,j-1)
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        
+        island = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                island += sinkIsland(i,j)
+        return island
