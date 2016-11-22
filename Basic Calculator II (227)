@@ -1,0 +1,32 @@
+class Solution(object):
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        import re
+        s = s.replace(' ','')
+        list = re.split('(\W)',s)
+        for i in range(len(list)):
+            if list[i]=='*':
+                multiple = int(list[i-1]) * int(list[i+1])
+                list[i+1] = multiple
+                list[i-1] = list[i] = '?'        
+            elif list[i]=='/':
+                division = int(int(list[i-1]) / int(list[i+1]))
+                list[i+1] = division
+                list[i-1] = list[i] = '?'
+        
+        value = '?'
+        while value in list:
+            list.remove(value)
+        
+        for i in range(len(list)):
+            if list[i]=='+':
+                addition = int(list[i-1]) + int(list[i+1])
+                list[i+1] = addition
+            elif list[i]=='-':
+                minus = int(list[i-1]) - int(list[i+1])
+                list[i+1] = minus
+        
+        return int(list[len(list)-1])
