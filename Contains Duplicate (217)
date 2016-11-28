@@ -1,0 +1,26 @@
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        nums.sort()
+        for i in range(len(nums)-1):
+            if nums[i] == nums[i+1]:
+                return True
+        return False
+        
+        # I don't know why the following codes, whose runtime is O(n), will result in Time Limit Exceeded,
+        # while the codes above that requires O(nlogn) passed?!
+        
+        """
+        dict = {}
+        for item in nums:
+            if item not in dict.keys():
+                dict[item] = 0
+            dict[item] += 1
+        for word in dict:
+            if dict[word] > 1:
+                return True
+        return False
+        """
