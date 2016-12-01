@@ -1,0 +1,17 @@
+class Solution(object):
+    def wiggleSort(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        nums.sort()
+        midPoint = int(len(nums)/2) + len(nums) % 2
+        smallList = nums[:midPoint]
+        smallList.reverse()
+        largeList = nums[midPoint:len(nums)]
+        largeList.reverse()
+        for i in range(len(nums)):
+            if i % 2 == 0:
+                nums[i] = smallList[int(i/2)]
+            else:
+                nums[i] = largeList[int(i/2)]
