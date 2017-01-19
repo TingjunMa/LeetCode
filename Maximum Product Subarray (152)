@@ -8,8 +8,8 @@ class Solution(object):
         minFormer = nums[0]
         maxProduct = nums[0]
         for i in range (1,len(nums)):
-            maxNew = max(max(maxFormer * nums[i], minFormer * nums[i]),nums[i])
-            minNew = min(min(maxFormer * nums[i], minFormer * nums[i]),nums[i])
+            maxNew = max(maxFormer * nums[i], minFormer * nums[i], nums[i])
+            minNew = min(maxFormer * nums[i], minFormer * nums[i], nums[i])
             maxProduct = max(maxNew, maxProduct)
             maxFormer = maxNew
             minFormer = minNew
