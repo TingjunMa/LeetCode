@@ -1,0 +1,19 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        word1 = list(s)
+        word2 = list(t)
+        dict = {}
+        for i in range (len(word1)):
+            if word1[i] not in dict.keys():
+                if word2[i] in dict.values():
+                    return False
+                dict[word1[i]] = word2[i]
+            else:
+                if dict[word1[i]] != word2[i]:
+                    return False
+        return True
