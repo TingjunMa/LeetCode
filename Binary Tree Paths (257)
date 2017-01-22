@@ -1,0 +1,27 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    # @param {TreeNode} root
+    # @return {string[]}
+    def binaryTreePaths(self, root):
+        if root == None:
+            return []
+            
+        if root.left == None and root.right == None:
+            return ["%s" % root.val]
+        else: 
+            if root.left == None:
+                combTree = self.binaryTreePaths(root.right)
+            elif root.right == None:
+                combTree = self.binaryTreePaths(root.left)
+            else:
+                combTree = self.binaryTreePaths(root.left) + self.binaryTreePaths(root.right)
+            newTree = []
+            for branch in combTree:
+                newTree.append("%s->%s" % (root.val, branch))
+            return newTree
