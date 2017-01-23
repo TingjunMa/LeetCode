@@ -1,0 +1,43 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root == None:
+            return True
+        else:
+            depth, isBalance = self.isBalancedHelper(root, isBalance=True)
+            if isBalance == True:
+                return True
+            else:
+                return False
+    
+    # @return int (recursive depth) and boolean (overall balanced)    
+    def isBalancedHelper(self, root, isBalance):
+        if root.left == None and root.right == None:
+            return (1,True)
+        elif root.left == None:
+            depth, isBalance = self.isBalancedHelper(root.right, isBalance)
+            if depth > 1:
+                isBalance = False
+            return (depth+1, isBalance)
+        elif root.right == None:
+            depth, isBalance = self.isBalancedHelper(root.left, isBalance)
+            if depth > 1:
+                isBalance = False
+            return (depth+1, isBalance)
+        else:
+            depthL, isBalanceL = self.isBalancedHelper(root.left, isBalance)
+            depthR, isBalanceR = self.isBalancedHelper(root.right, isBalance)
+            isBalance = isBalanceL and isBalanceR
+            if abs(depthL - depthR) > 1:
+                isBalance = False
+            return (max(depthL, depthR)+1, isBalance)
