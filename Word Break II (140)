@@ -1,0 +1,21 @@
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: List[str]
+        """
+        sentence = {len(s): [""]}
+        for i in range (len(s)-1, -1, -1):
+            values = []
+            for j in range (i+1, len(s)+1):
+                if s[i:j] in wordDict:
+                    for word in sentence[j]:
+                        if word:
+                            values.append(s[i:j] + " " + word)
+                        else:
+                            values.append(s[i:j] + word)
+            sentence[i] = values
+            print(values)
+        return sentence[0]
+        # Dynamic Programming
