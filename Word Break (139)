@@ -8,9 +8,9 @@ class Solution(object):
         dp = [False] * (len(s)+1)
         dp[0] = True
         for i in range (len(s)):
-            for j in range (i, len(s)+1):
-                if dp[i] and s[i:j] in wordDict:
-                    dp[j] = True
+            for j in range (i, len(s)):
+                if dp[i] and s[i:j+1] in wordDict: #if substring from i to j(included)
+                    dp[j+1] = True                 #set satisfied on the j+1 position
         return dp[-1]
         
         # The core of dp (Dynamic Programming) is to make sure the previous satisfies and the current satisfies, and finally achieve the whole is satisfied.
