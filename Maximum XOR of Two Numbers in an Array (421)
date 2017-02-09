@@ -24,5 +24,7 @@ Codes explaination:
                 if (answer^1)^p in list:
                     answer += 1
                     break
-            
-"""
+ 
+        
+        """ eg. assume we can achieve max XOR 1111111, if 1111111 xor num in list is also in list, 
+        """ it means it could be satisfied, marked as 1, else mark as 0, which means this bit could not statisfied.
