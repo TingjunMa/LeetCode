@@ -1,0 +1,19 @@
+class Solution(object):
+    def isUgly(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        if num == 1:
+            return True
+        elif num < 1:
+            return False
+        ugly = [2,3,5]
+        while num != 1:
+            for i in range(len(ugly)+1):
+                if i == len(ugly):
+                    return False
+                if num % ugly[i] == 0:
+                    num = num / ugly[i]
+                    break;
+        return True
