@@ -11,29 +11,21 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        ListNode(dummy)
-        p1=l1,p2=l2,cur=dummy.next
-        carry=0
-        
-        while (p1!=null or p2!=null):
-            if p1!=null:
-                x=p1.val
-            else:
-                x=0
-            
-            if p2!=null:
-                y=p2.val
-            else:
-                y=0
-            
-            sum=x+y+carry
-            carry=sum/10
-            cur.val=sum%10
-            cur=cur.next
-        
-        if carry==1:
-            cur.next.val=1
-        
+        dummy = ListNode(0)
+        carry = 0
+        cur = dummy
+        while l1 != None or l2 != None:
+            total = (l1.val if l1 != None else 0)+ (l2.val if l2 != None else 0)
+            sum = (total + carry) % 10
+            carry = (total + carry) / 10            
+            cur.next = ListNode(sum)
+            cur = cur.next
+            if l1 != None:
+                l1 = l1.next
+            if l2 != None:
+                l2 = l2.next
+        if carry == 1:
+            cur.next = ListNode(1)
         return dummy.next
         
         
