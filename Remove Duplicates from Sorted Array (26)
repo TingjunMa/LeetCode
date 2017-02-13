@@ -1,0 +1,14 @@
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        pointer = 0
+        for i in range (len(nums)):
+            if nums[i] not in nums[:pointer]:
+                nums[pointer] = nums[i]
+                pointer += 1
+        return pointer
+        
+        # Time Limit Exceeded for input: [-999, -999, -998 ... 9998,9998,9999,9999]
