@@ -1,0 +1,23 @@
+class Solution(object):
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+        if divisor == 0:
+            return -1
+        sign = (dividend < 0 ) ^ (divisor < 0)
+        dividend = abs(dividend)
+        divisor = abs(divisor)
+        result = 0                                  # 16/3 = ?
+        while dividend >= divisor:                  # 16>=3 7>=3 4>=3 1<3exit
+            remain, addUp = divisor, 1
+            while remain <= dividend:               # 16>=3 13>=6 7<=12exit 7>=3 4<=6exit 1<=6exit
+                dividend -= remain                  # 16-3=13   13-6=7 | 7-3=4 | 4-3=1
+                result += addUp                     # 1 1+2=3 | 3+1=4 | 4+1=5
+                remain <<= 1                        # 6 12 | 6 | 6
+                addUp <<= 1                         # 2 4 | 2 | 2
+        if sign:
+            result = -result
+        return max(-2147483648, min(2147483647, result))    # return 5
