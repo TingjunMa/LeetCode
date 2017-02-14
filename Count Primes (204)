@@ -1,0 +1,37 @@
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        primeList = [False, False]
+        for i in range(2,n):
+            primeList.append(True)
+        
+        checkPrime = 2
+        while checkPrime*checkPrime < n:
+            if primeList[checkPrime] == True:
+                for notPrime in range(checkPrime*checkPrime, n, checkPrime):
+                    primeList[notPrime] = False
+            checkPrime += 1
+        count =0
+        for i in range(2,n):
+            if primeList[i]:
+                count += 1
+        return count
+        
+        
+        # simple solution
+        # def isPrime(num):
+        #     i = 2
+        #     while i*i <= num:
+        #         if num % i == 0:
+        #             return False
+        #         i += 1
+        #     return True
+            
+        # count = 0
+        # for i in range (2,n):
+        #     if isPrime(i):
+        #         count += 1
+        # return count
