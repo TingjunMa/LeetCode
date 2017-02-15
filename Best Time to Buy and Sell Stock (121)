@@ -1,0 +1,15 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        maxP = 0
+        curP = 0
+        for i in range(1,len(prices)):
+            curP = max(0, curP+prices[i]-prices[i-1])   # if curP+prices[i]-prices[i-1] is positive,then if later profit is large, it could
+                                                        # be extended to the former buy in
+                                                        # if is negative, it is a new start, and if later profit is large, it could Not
+                                                        # be extended to the former buy in because there is a smaller buy in than before 
+            maxP = max(maxP, curP)
+        return maxP
