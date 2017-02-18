@@ -1,0 +1,18 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        result = ""
+        carry = 0
+        i = -1
+        while abs(i)<=len(a) or abs(i)<=len(b) or carry!=0:
+            x = int(a[i]) if abs(i)<=len(a) else 0
+            y = int(b[i]) if abs(i)<=len(b) else 0
+            sum = x ^ y ^ carry
+            carry = (x + y + carry) / 2
+            result += str(sum)
+            i -= 1
+        return result[::-1]
