@@ -1,0 +1,30 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        result = ListNode(0)
+        dummy = result
+        length = len(lists)
+        new = True
+        while any(lists[i] for i in range (length)):
+            for i in range(length):
+                if lists[i] and new == True:
+                    smallest = i
+                    new = False
+                if lists[i] and lists[i].val < lists[smallest].val:
+                    smallest = i
+            result.next = ListNode(lists[smallest].val)
+            result = result.next
+            lists[smallest] = lists[smallest].next
+            new = True
+        return dummy.next
+        
+# Time limit exceed when lists = [[999],[998],[997],[996]...,[],[]...[]]
