@@ -1,0 +1,29 @@
+class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        if s == None and p == None:
+            return True
+        elif s == None or p == None:
+            return False
+        dp = [[False]*(len(p)+1) for _ in range (len(s)+1)]     # i:index of s, j: index of p. Create dp table of i*j.ie, dp[i][j]
+        dp[0][0] = True                                         # start with true
+        for j in range (1,len(p)):                              # check for *. 
+            if p[j] == '*' and dp[0][j-1]:                      # if index s is the very beginning and index j is *
+                dp[0][j+1] = True                               # it can extend whatever of index j-1 to index j+1.ie, T->T, F->F
+        for i in range (len(s)):
+            for j in range (len(p)):
+                if p[j] == '.':                                 # index j is '.'
+                    dp[i+1][j+1] = dp[i][j]                     # extend bool [i][j] to [i+1][j+1] as '.' represent the previous one
+                if p[j] == s[i]:                                # index i and index j is same
+                    dp[i+1][j+1] = dp[i][j]                     # does not affect bool [i][j], and [i+1][j+1] is same as previous one
+                if p[j] == '*':                                 # index j is '*'
+                    if p[j-1] != s[i] and p[j-1] != '.':        # * only counts as empty because j-1 != s and also j-1 is not .
+                        dp[i+1][j+1] = dp[i+1][j-1]             # empty can cause j-1 transfer to j+1
+                    else:                                       # * counts as others
+                        dp[i+1][j+1] = dp[i+1][j] or dp[i][j+1] or dp[i+1][j-1] 
+                    # * counts as:      multiply,   single,         empty            
+        return dp[-1][-1]
