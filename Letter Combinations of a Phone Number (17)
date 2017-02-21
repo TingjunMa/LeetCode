@@ -1,0 +1,17 @@
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if digits == "":
+            return []
+        maps = {'0': ' ','1': '*','2': 'abc','3': 'def','4': 'ghi','5': 'jkl','6': 'mno','7': 'pqrs','8': 'tuv','9': 'wxyz'}
+        result = [""]
+        for num in digits:                          # parse each char num
+            curr = []
+            for comb in result:                     # get each previous done combinations
+                for letter in maps[num]:            # check dict for letters
+                    curr.append(comb+letter)        # append each letter in previous done combinations
+            result = curr                           # update result
+        return result
