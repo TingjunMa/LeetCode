@@ -11,9 +11,12 @@ class Solution:
     def binaryTreePaths(self, root):
         if root == None:
             return []
-            
+        
+        combTree = []    
         if root.left == None and root.right == None:
             return ["%s" % root.val]
+            #combTree.append([root.val])
+            #return combTree
         else: 
             if root.left == None:
                 combTree = self.binaryTreePaths(root.right)
@@ -24,4 +27,9 @@ class Solution:
             newTree = []
             for branch in combTree:
                 newTree.append("%s->%s" % (root.val, branch))
+                #branch.insert(0,root.val)
             return newTree
+            #return combTree
+            
+            
+            # means return the list of paths LISTS instead of the list of paths STRINGS
