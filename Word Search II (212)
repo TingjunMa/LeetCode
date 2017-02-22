@@ -1,0 +1,33 @@
+class Solution(object):
+    def findWords(self, board, words):
+        """
+        :type board: List[List[str]]
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        trie = {}
+        for word in words:
+            t = trie
+            for letter in word:
+                if letter not in t:
+                    t[letter] = {}
+                t = t[letter]
+            t['*'] = '*'                # end of the word /  end of the trie branch
+        result = []
+        for i in range(len(board)):
+            for j in range (len(board[0])):
+                self.find(board, i, j, trie, '', result)
+        return list(set(result))        # use set to get rid of multiply answer because of four time recursions
+        
+    def find(self, board, i, j ,trie, prefix, result):
+        if '*' in trie:                 # if reaches the end of the word, then this word satisfies
+            result.append(prefix)
+        if i<0 or i>len(board)-1 or j<0 or j>len(board[0])-1 or board[i][j] not in trie:
+            return                      # out of the edge or not find prefix letter, then return nothing
+        curr = board[i][j]
+        board[i][j] = "$"               # visited dot on the board to avoid recursively revisit
+        self.find(board, i+1, j, trie[curr], prefix+curr, result) # go in another level of trie dict
+        self.find(board, i, j+1, trie[curr], prefix+curr, result) # cascade the letter to prefix
+        self.find(board, i-1, j, trie[curr], prefix+curr, result)
+        self.find(board, i, j-1, trie[curr], prefix+curr, result)
+        board[i][j] = curr              # recover this dot on the board
