@@ -1,0 +1,50 @@
+class Solution(object):
+    
+    ###   Solution 1   ### 
+    def addOperators(self, num, target):
+        """
+        :type num: str
+        :type target: int
+        :rtype: List[str]
+        """
+        result = []
+        for i in range (1, len(num)+1):
+            if i== 1 or (i>1 and num[0] != '0'):
+                self.helper(num[i:], num[:i], int(num[:i]), int(num[:i]), result, target)
+        return result
+        
+    def helper(self, restNums, expression, currTarg, lastNum, result, target):
+        if not restNums:
+            if currTarg == target:
+                result.append(expression)
+            return
+        for i in range(1, len(restNums)+1):
+            val = restNums[:i]
+            if i == 1 or (i>1 and restNums[0] != '0'):
+                self.helper(restNums[i:], expression+"+"+val, currTarg+int(val), int(val), result, target)
+                self.helper(restNums[i:], expression+"-"+val, currTarg-int(val), -int(val), result, target)
+                self.helper(restNums[i:], expression+"*"+val, currTarg-lastNum+lastNum*int(val), lastNum*int(val), result, target)
+    
+    
+    ###   Solution 2   ###            
+    def addOperators(self, num, target):            
+        result = []
+        if len(num) == 0:
+            return result
+        self.helper(num, "", 0, 0, target, 0, result)
+        return result
+    
+    def helper(self, num, expression, currTarg, lastNum, target, pos, result):
+        if pos == len(num):
+            if currTarg == target:
+                result.append(expression)
+            return
+        for i in range(pos, len(num)):
+            val = num[pos:i+1]
+            if i == pos or (i>pos and num[pos] != '0'):
+                if pos == 0:
+                    self.helper(num, expression+val, currTarg+int(val), int(val), target, i+1, result)
+                else:
+                    self.helper(num, expression+"+"+val, currTarg+int(val), int(val), target, i+1, result)
+                    self.helper(num, expression+"-"+val, currTarg-int(val), -int(val), target, i+1, result)
+                    self.helper(num, expression+"*"+val, currTarg-lastNum+lastNum*int(val), lastNum*int(val), target, i+1, result)
