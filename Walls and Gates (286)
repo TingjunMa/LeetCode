@@ -1,0 +1,31 @@
+def findPath(puzzle):
+    for i in range (len(puzzle)):
+        for j in range (len(puzzle[0])):
+            if puzzle[i][j] == 0:
+                #dfs(i,j,puzzle,0)
+                bfs(i,j,puzzle)
+    return puzzle
+
+# DFS solution
+def dfs(i,j,puzzle,dis):
+    if i<0 or i>=len(puzzle) or j<0 or j>=len(puzzle[0]) or puzzle[i][j]<dis:
+        return
+    puzzle[i][j] = dis
+    dfs(i+1,j,puzzle,dis+1)
+    dfs(i,j+1,puzzle,dis+1)
+    dfs(i-1,j,puzzle,dis+15)
+    dfs(i,j-1,puzzle,dis+1)
+    return
+
+# BFS solution
+def bfs(i,j,puzzle):
+    stack = [(i+1,j,1),(i-1,j,1),(i,j+1,1),(i,j-1,1)]
+    while stack:
+        nextI, nextJ, dis = stack.pop(0)
+        if 0<=nextI<len(puzzle) and 0<=nextJ<len(puzzle[0]) and puzzle[nextI][nextJ] > dis:
+            puzzle[nextI][nextJ] = dis
+            stack.append((nextI+1,nextJ,dis+1))
+            stack.append((nextI-1,nextJ,dis+1))
+            stack.append((nextI,nextJ+1,dis+1))
+            stack.append((nextI,nextJ-1,dis+1))
+    return
