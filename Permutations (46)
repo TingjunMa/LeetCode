@@ -1,0 +1,21 @@
+class Solution(object):
+    def permute(self, nums):
+        res = []
+        self.dfs(nums, [], res)
+        return res
+        
+    def dfs(self, nums, path, res):
+        if not nums:
+            res.append(path)
+        for i in range(len(nums)):
+            self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+    """ 
+                (123)
+            1    2    3
+          (23)  (13) (12)
+         2   3  1  3  1  2
+        (3) (2)(3)(1)(2)(1)
+         3   2  3  1  2  1
+        ()  () () ()  () () ---append because nums is empty
+    
+    """
