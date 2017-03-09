@@ -1,0 +1,26 @@
+"""
+You are playing the following Flip Game with your friend: Given a string that contains only these two characters: + and -, 
+you and your friend take turns to flip two consecutive"++" into "--". 
+The game ends when a person can no longer make a move and therefore the other person will be the winner.
+Write a function to determine if the starting player can guarantee a win.
+For example, given s = "++++", return true. The starting player can guarantee a win by flipping the middle "++" to become "+--+".
+"""
+
+s = "++++"
+
+subStringCanWin = {}
+
+def canWin(s):
+    if s not in subStringCanWin.keys():
+        subStringCanWin[s] = False
+        for i in range(len(s)):
+            if s[i:i+2] == "++" and not canWin(s[:i] + "--" + s[i+2:]):
+                subStringCanWin[s] = True       
+    return subStringCanWin[s]
+
+print(canWin(s))
+
+# Dynamic programming
+# store substrings (keys) and booleans (values) to find out if I meet this substring, am I able to win
+# win must be : I have ++ now and (the opponent) could not win with rest of the substring
+# Time complexity without DP: O(n!!), with DP: unsure, very rare worst case O(n!!)?
