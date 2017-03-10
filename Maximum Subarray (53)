@@ -6,15 +6,16 @@ class Solution(object):
         """
         sums = nums[0]
         sumAfterAdd = 0
+        possLeft = 0
         left = 0
         right = 0
         for i in range(len(nums)):
             sumAfterAdd = max(sumAfterAdd + nums[i],nums[i])
-            if sumAfterAdd == nums[i]:                  # IF is used to find the index of maxSubArray's head
-                left = i                                #
-                right = i                               #
-            sums = max(sumAfterAdd, sums)               
-            if sums == sumAfterAdd:                     # IF is used to find the index of maxSubArray's tail
-                right = i                               #
+            if sumAfterAdd == nums[i]:                      # IF is used to find the index of possible maxSubArray's head
+                possLeft = i                                #
+            sums = max(sumAfterAdd, sums)
+            if sums == sumAfterAdd:                         # IF is used to find the index of true maxSubArray's head and tail 
+                left = possLeft                             #
+                right = i                                   #
         print(left, right)
         return sums
