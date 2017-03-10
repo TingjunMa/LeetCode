@@ -1,0 +1,24 @@
+class Solution(object):
+    def findTargetSumWays(self, nums, S):
+        """
+        :type nums: List[int]
+        :type S: int
+        :rtype: int
+        """
+        if nums == []:
+            return 0
+        
+        # initilize dp dictionary
+        if nums[0] != 0:
+            dp = {nums[0]:1,-nums[0]:1}
+        else:
+            dp = {0:2}
+            
+        # construct new dp_temp in each num and update dp
+        for i in range (1, len(nums)):
+            dp_temp = {}
+            for sum in dp.keys():                                                   # check every sum in dp.keys() to find out the new sum 
+                dp_temp[sum+nums[i]] = dp_temp.get(sum+nums[i],0) + dp.get(sum,0)   # update dp_temp new sum amount by old sum amount in dp
+                dp_temp[sum-nums[i]] = dp_temp.get(sum-nums[i],0) + dp.get(sum,0)   #   including plus and minus
+            dp = dp_temp
+        return dp.get(S,0)                                                          # dp includes every possible sum in nums so get needed
