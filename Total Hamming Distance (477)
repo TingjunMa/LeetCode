@@ -1,0 +1,13 @@
+class Solution(object):
+    def totalHammingDistance(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        bits = [[0,0] for _ in range(32)]   # integer has at most 32 bits
+        for num in nums:                    # go through every num in nums
+            for i in range (32):
+                bits[i][num%2] += 1         # the ith bit of each num is 0 (left of bits[i] increase 1) or 1 (right of bits[i] increase 1)
+                num /= 2                    # equals to right shift once
+        return sum(x*y for [x,y] in bits)   # result equals the sum of every bit has how many 0 times how many 1 
+                
