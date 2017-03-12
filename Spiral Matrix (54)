@@ -1,0 +1,35 @@
+class Solution(object):
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        result = []
+        if matrix == []:
+            return result
+        self.spiralOrderHelper(0,len(matrix)-1,0,len(matrix[0])-1,matrix, result)
+        return result
+    
+    # mS, mE: start row and end row of matrix; nS, nE: start column and end column of matrix    
+    def spiralOrderHelper(self, mS, mE, nS, nE, matrix, result):
+        # no more inner matrix, return
+        if nS > nE or mS > mE:
+            return
+        # top left to top right, then if the matrix is single row (mS == mE), return
+        for i in range (nS, nE+1):
+            result.append(matrix[mS][i])
+        if mS == mE:
+            return
+        # right top+1 to right bottom, then if the matrix is single column (nS == nE), return 
+        for i in range (mS+1, mE+1):
+            result.append(matrix[i][nE])
+        if nS == nE:
+            return
+        # bottom right-1 to bottom left
+        for i in range (nE-1, nS-1, -1):
+            result.append(matrix[mE][i])
+        # left bottom-1 to left top-1
+        for i in range (mE-1, mS, -1):
+            result.append(matrix[i][nS])
+        # go to inner matrix
+        self.spiralOrderHelper(mS+1, mE-1, nS+1, nE-1, matrix, result)
