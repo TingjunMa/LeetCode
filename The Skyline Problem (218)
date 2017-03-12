@@ -1,0 +1,43 @@
+class Solution(object):
+    def getSkyline(self, buildings):
+        """
+        :type buildings: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        queue = []
+        height = 0
+        critPoint = []
+        skyline = []
+        
+        # get all critical points (x-coordinates of all buildings)
+        for buil in buildings:
+            if buil[0] not in critPoint:
+                critPoint.append(buil[0])
+            if buil[1] not in critPoint:
+                critPoint.append(buil[1])
+        critPoint.sort()
+        
+        #check each critical point
+        for x in critPoint:
+            # remove building from queue if current critical point is the end of the building
+            i = 0
+            while i < len(queue):
+                if queue[i][1] == x:
+                    queue.pop(i)
+                else:
+                    i += 1
+            # add building to queue if current critical point is the start of the building
+            while buildings != [] and buildings[0][0] == x:
+                queue.append(buildings.pop(0))
+            # sort queue by buildings' heights (high to low)
+            queue = sorted(queue, key=lambda queue: queue[2], reverse=True)
+            # if the tallest building in queue currently is not equal to previous height, update height and append x and new height to skyline
+            if queue != [] and queue[0][2] != height:
+                height = queue[0][2]
+                skyline.append([x,height])
+            elif queue == [] and height != 0:
+                height = 0                
+                skyline.append([x,0])
+        return skyline
+        
+# Time Limit Exceeded for large input!
