@@ -1,0 +1,16 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root, large = float('inf'), small = float('-inf')):
+        if root == None:
+            return True
+        if root.val <= small or root.val >= large:
+            return False
+        return self.isValidBST(root.left, min(large, root.val), small) and self.isValidBST(root.right, large, max(small, root.val))
+        # for left child, it must smaller than its parent and the largest of its path to itself ,and larger than the smallest of its path to itself
+        # for right child, it must smaller than its largest of its path to itself, and larger than its parent and the smallest of its path to itself
