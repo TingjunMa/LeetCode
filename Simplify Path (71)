@@ -1,0 +1,20 @@
+class Solution(object):
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        # remove all '/'
+        splitSlash = path.split('/')
+        # append name and '..'
+        location = [p for p in splitSlash if p != '.' and p != '']
+        stack = []
+        # go through all elements in location, if is name, append to stack, else if is '..', pop last element in stack 
+        for l in location:
+            if l != '..':
+                stack.append(l)
+            else:
+                if len(stack) != 0:
+                    stack.pop()
+        # add '/' at the beginning then stack join string
+        return '/' + '/'.join(stack)
