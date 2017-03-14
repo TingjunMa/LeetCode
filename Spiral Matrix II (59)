@@ -1,0 +1,30 @@
+class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        if n == 0:
+            return []
+        matrix = [[0] * n for _ in range(n)]
+        self.generateMatrixHelper(0, n-1, 0, n-1, matrix, 1, n*n)
+        return matrix
+        
+    def generateMatrixHelper(self, rS, rE, cS, cE, matrix, i, l):
+        for index in range(cS, cE+1):
+            matrix[rS][index] = i
+            i += 1
+            if i > l:
+                return
+        for index in range (rS+1, rE+1):
+            matrix[index][cE] = i
+            i += 1
+        for index in range (cE-1, cS-1,-1):
+            matrix[rE][index] = i
+            i += 1
+            if i > l:
+                return
+        for index in range (rE-1, rS,-1):
+            matrix[index][cS] = i
+            i += 1
+        self.generateMatrixHelper(rS+1, rE-1, cS+1, cE-1, matrix, i, l)
